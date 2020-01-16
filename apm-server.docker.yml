@@ -4,7 +4,7 @@
 
 apm-server:
   # Defines the host and port the server is listening on. Use "unix:/path/to.sock" to listen on a unix domain socket.
-  host: "0.0.0.0:8200"
+  host: '${APM_HOST}'
 
   # Maximum permitted size in bytes of a request's header accepted by the server to be processed.
   #max_header_size: 1048576
@@ -75,7 +75,7 @@ apm-server:
   # agents must send it in the following format: Authorization: Bearer <secret-token>.
   # It is recommended to use an authorization token in combination with SSL enabled,
   # and save the token in the apm-server keystore. The token is not used for the RUM endpoint.
-  #secret_token:
+  secret_token: '${APM_SECRET_TOKEN}'
 
   # Enable secure communication between APM agents and the server. By default ssl is disabled.
   #ssl:
@@ -189,19 +189,19 @@ apm-server:
   # Specify cache key expiration via this setting. Default is 30 seconds.
   #agent.config.cache.expiration: 30s
 
-  #kibana:
+  kibana:
     # For APM Agent configuration in Kibana, enabled must be true.
-    #enabled: false
+    enabled: '${KIBANA_ENABLED}'
 
     # Scheme and port can be left out and will be set to the default (`http` and `5601`).
     # In case you specify an additional path, the scheme is required: `http://localhost:5601/path`.
     # IPv6 addresses should always be defined as: `https://[2001:db8::1]:5601`.
-    #host: "localhost:5601"
+    host: '${KIBANA_HOST}'
 
     # Optional protocol and basic auth credentials.
     #protocol: "https"
-    #username: "elastic"
-    #password: "changeme"
+    username: '${KIBANA_USERNAME}'
+    password: '${KIBANA_PASSWORD}'
 
     # Optional HTTP path.
     #path: ""
@@ -390,7 +390,7 @@ output.elasticsearch:
   # Scheme and port can be left out and will be set to the default (`http` and `9200`).
   # In case you specify and additional path, the scheme is required: `http://localhost:9200/path`.
   # IPv6 addresses should always be defined as: `https://[2001:db8::1]:9200`.
-  hosts: ["elasticsearch:9200"]
+  hosts: '${ELASTICSEARCH_HOSTS}' # ["srv-captain--es:9200"]
 
   # Boolean flag to enable or disable the output module.
   #enabled: true
@@ -400,8 +400,8 @@ output.elasticsearch:
 
   # Optional protocol and basic auth credentials.
   #protocol: "https"
-  #username: "elastic"
-  #password: "changeme"
+  username: '${ELASTICSEARCH_USERNAME}'
+  password: '${ELASTICSEARCH_PASSWORD}'
 
   # Dictionary of HTTP parameters to pass within the url with index operations.
   #parameters:
@@ -890,19 +890,19 @@ output.elasticsearch:
 # reporting is disabled by default.
 
 # Set to true to enable the monitoring reporter.
-#monitoring.enabled: false
+monitoring.enabled: '${MONITORING_ENABLED}'
 
 # Most settings from the Elasticsearch output are accepted here as well.
 # Note that these settings should be configured to point to your Elasticsearch *monitoring* cluster.
 # Any setting that is not set is automatically inherited from the Elasticsearch
 # output configuration. This means that if you have the Elasticsearch output configured,
 # you can simply uncomment the following line.
-#monitoring.elasticsearch:
+monitoring.elasticsearch:
 
   # Optional protocol and basic auth credentials.
   #protocol: "https"
-  #username: "apm_system"
-  #password: ""
+  username: '${MONITORING_USERNAME}'
+  password: '${MONITORING_PASSWORD}' 
 
   # Array of hosts to connect to.
   # Scheme and port can be left out and will be set to the default (`http` and `9200`).
